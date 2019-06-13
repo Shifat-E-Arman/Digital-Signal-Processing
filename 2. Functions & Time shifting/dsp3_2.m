@@ -1,0 +1,12 @@
+clc;
+clear;
+x=[1 2 3 4 5 6 7 8 9];
+len=length(x);
+o=[1:len];
+n=3;
+oi=o-n;
+oi1=oi*-1;
+subplot(2,1,1);
+stem(oi,x);
+subplot(2,1,2);
+stem(oi1,x);
