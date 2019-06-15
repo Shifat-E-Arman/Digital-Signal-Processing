@@ -16,6 +16,8 @@ for n=1:length(x)+length(h)-1
        end
     end
 end
+stem(y1)
+title('Convolution')
 %% Looping Correlation
 % The only difference is you just have to flip h before entering into the
 % loop
@@ -30,3 +32,5 @@ for n=1:length(x)+length(h)-1
        end
     end
 end
+stem(y2)
+title('Correlation')
