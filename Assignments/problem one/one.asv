@@ -1,0 +1,68 @@
+clear;clc;close all;
+n=0:200;
+M=100;
+w1 = 0.05*pi;
+w2 = 0.20*pi;
+w3 = 0.35*pi;
+wa = 0.15*pi;
+wb = 0.25*pi;
+s = sin(w2*n);
+v1 = sin(w1*n);
+v2 = sin(w3*n);
+
+v = v1+v2;
+x = s+v;
+
+w = 0.54 - 0.46.*cos((2*pi).*n/M);
+h = (w/pi).*(wb.*sinc((wb/pi).*(n-M/2)) - wa.*sinc((wa/pi).*(n-M/2)));
+
+y = filter(h,1,x);
+
+
+
+figure; plot(n,x);
+hold on; 
+plot(n,s);
+title('1 (a) ');
+hold off;
+
+figure ; 
+plot(n,s);
+hold on;
+plot(n,y);
+title('1 (b)');
+hold off;
+
+figure ; 
+plot(n,v);
+hold on;
+plot(n,filter(h,1,v));
+title('1 (c)');
+hold off;
+
+
+
+% q = 0:0.05:0.4*pi;
+% H=zeros(1,(size(q,2)));
+% 
+% for om = 1:size(q,2)
+%     s=0+0i;
+%     for j = 1:size(n,2)
+%         s = s + h(j)*exp(-i*om*j);
+%     end
+%     
+%     H(om) = abs(s);
+% end
+
+firFilt = dsp.FIRFilter('Numerator',h);
+[H,w]=freqz(firFilt);
+
+figure; plot(w,abs(H));
+title('1(d)');
+xlim([0,0.4*pi]);
+xticks([0 0.05*pi 0.1*pi 0.15*pi pi 2*pi 3*pi])
+xticklabels({'-3\pi','-2\pi','-\pi','0','\pi','2\pi','3\pi'})
+
+
+
+
